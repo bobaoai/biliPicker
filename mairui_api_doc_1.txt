@@ -1,0 +1,909 @@
+1. 沪深两市股票
+API接口：http://api.mairui.club/hslt/list/您的licence
+备用接口：http://api1.mairui.club/hslt/list/您的licence
+接口说明：获取沪深两市所有股票的代码、名称、所属交易所信息，用于后续接口的传递参数。
+数据更新：每日16:00更新
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+dm	string	股票的六位交易代码，例如：601398
+mc	string	股票名称，例如：工商银行
+jys	string	交易所，"sh"表示上证，"sz"表示深证
+
+2. 沪深两市新股日历
+API接口：http://api.mairui.club/hslt/new/您的licence
+备用接口：http://api1.mairui.club/hslt/new/您的licence
+接口说明：沪深两市的新股日历，按上网发行日期倒序排列
+数据更新：每日16:00更新
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+zqdm	string	股票代码
+zqjc	string	股票简称
+sgdm	string	申购代码
+fxsl	number	发行总数（股）
+swfxsl	number	网上发行（股）
+sgsx	number	申购上限（股）
+dgsz	number	顶格申购需配市值(元)
+sgrq	string	申购日期
+fxjg	number	发行价格（元），null为“未知”
+zxj	number	最新价（元），null为“未知”
+srspj	number	首日收盘价（元），null为“未知”
+zqgbrq	string	中签号公布日，null为未知
+zqjkrq	string	中签缴款日，null为未知
+ssrq	string	上市日期，null为未知
+syl	number	发行市盈率，null为“未知”
+hysyl	number	行业市盈率
+wszql	number	中签率（%），null为“未知”
+yzbsl	number	连续一字板数量，null为“未知”
+zf	number	涨幅（%），null为“未知”
+yqhl	number	每中一签获利（元），null为“未知”
+zyyw	string	主营业务
+
+3. 指数、行业、概念
+API接口：http://api.mairui.club/hszg/list/您的licence
+备用接口：http://api1.mairui.club/hszg/list/您的licence
+接口说明：获取指数、行业、概念（包括基金，债券，美股，外汇，期货，黄金等的代码），其中isleaf为1（叶子节点）的记录的code（代码）可以作为下方接口的参数传入，从而得到某个指数、行业、概念下的相关股票。
+数据更新：每周六03:00更新
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+code	string	代码
+name	string	名称
+type1	number	一级分类（0:A股,1:创业板,2:科创板,3:基金,4:香港股市,5:债券,6:美国股市,7:外汇,8:期货,9:黄金,10:英国股市）
+type2	number	二级分类（0:A股-申万行业,1:A股-申万二级,2:A股-热门概念,3:A股-概念板块,4:A股-地域板块,5:A股-证监会行业,6:A股-分类,7:A股-指数成分,8:A股-风险警示,9:A股-大盘指数,10:A股-次新股,11:A股-沪港通,12:A股-深港通,13:基金-封闭式基金,14:基金-开放式基金,15:基金-货币型基金,16:基金-ETF基金净值,17:基金-ETF基金行情,18:基金-LOF基金行情,21:基金-科创板基金,22:香港股市-恒生行业,23:香港股市-全部港股,24:香港股市-热门港股,25:香港股市-蓝筹股,26:香港股市-红筹股,27:香港股市-国企股,28:香港股市-创业板,29:香港股市-指数,30:香港股市-A+H,31:香港股市-窝轮,32:香港股市-ADR,33:香港股市-沪港通,34:香港股市-深港通,35:香港股市-中华系列指数,36:债券-沪深债券,37:债券-深市债券,38:债券-沪市债券,39:债券-沪深可转债,40:美国股市-中国概念股,41:美国股市-科技类,42:美国股市-金融类,43:美国股市-制造零售类,44:美国股市-汽车能源类,45:美国股市-媒体类,46:美国股市-医药食品类,48:外汇-基本汇率,49:外汇-热门汇率,50:外汇-所有汇率,51:外汇-交叉盘汇率,52:外汇-美元相关汇率,53:外汇-人民币相关汇率,54:期货-全球期货,55:期货-中国金融期货交易所,56:期货-上海期货交易所,57:期货-大连商品交易所,58:期货-郑州商品交易所,59:黄金-黄金现货,60:黄金-黄金期货
+level	number	层级，从0开始，根节点为0，二级节点为1，以此类推
+pcode	string	父节点代码
+pname	string	父节点名称
+isleaf	number	是否为叶子节点，0：否，1：是
+
+4. 根据指数、行业、概念找相关股票
+API接口：http://api.mairui.club/hszg/gg/指数、行业、概念代码/您的licence
+备用接口：http://api1.mairui.club/hszg/gg/指数、行业、概念代码/您的licence
+接口说明：根据“指数、行业、概念树”接口得到的代码作为参数，得到相关的股票。
+数据更新：每周六03:00更新
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+dm	string	代码（根据接口参数可能是A股股票代码，也可能是其他指数、行业、概念的股票代码）
+mc	string	名称（根据接口参数可能是A股股票代码，也可能是其他指数、行业、概念的股票名称）
+jys	string	交易所，sh表示上证，sz表示深证（如果返回的是A股的股票，那么有值，否则是null）
+根据股票找相关指数、行业、概念
+API接口：http://api.mairui.club/hszg/zg/股票代码(如000001)/您的licence
+备用接口：http://api1.mairui.club/hszg/zg/股票代码(如000001)/您的licence
+接口说明：根据《股票列表》得到的股票代码作为参数，得到相关的指数、行业、概念。
+数据更新：每周六03:00更新
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+code	string	指数、行业、概念代码，如：sw2_650300
+name	string	指数、行业、概念名称，如：沪深股市-申万二级-国防军工-地面兵装
+
+5. 公司简介
+API接口：http://api.mairui.club/hscp/gsjj/股票代码(如000001)/您的licence
+备用接口：http://api1.mairui.club/hscp/gsjj/股票代码(如000001)/您的licence
+接口说明：根据《股票列表》得到的股票代码获取上市公司的简介。包括公司基本信息，概念以及发行信息等。
+数据更新：每天15:30开始更新，次日凌晨3点前完成
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+name	string	公司名称
+ename	string	公司英文名称
+market	string	上市市场
+idea	string	概念及板块，多个概念由英文逗号分隔
+ldate	string	上市日期，格式yyyy-MM-dd
+sprice	string	发行价格（元）
+principal	string	主承销商
+rdate	string	成立日期
+rprice	string	注册资本
+instype	string	机构类型
+organ	string	组织形式
+secre	string	董事会秘书
+phone	string	公司电话
+sphone	string	董秘电话
+fax	string	公司传真
+sfax	string	董秘传真
+email	string	公司电子邮箱
+semail	string	董秘电子邮箱
+site	string	公司网站
+post	string	邮政编码
+infosite	string	信息披露网址
+oname	string	证券简称更名历史
+addr	string	注册地址
+oaddr	string	办公地址
+desc	string	公司简介
+bscope	string	经营范围
+printype	string	承销方式
+referrer	string	上市推荐人
+putype	string	发行方式
+pe	string	发行市盈率（按发行后总股本）
+firgu	string	首发前总股本（万股）
+lastgu	string	首发后总股本（万股）
+realgu	string	实际发行量（万股）
+planm	string	预计募集资金（万元）
+realm	string	实际募集资金合计（万元）
+pubfee	string	发行费用总额（万元）
+collect	string	募集资金净额（万元）
+signfee	string	承销费用（万元）
+pdate	string	招股公告日
+
+6. 所属指数
+API接口：http://api.mairui.club/hscp/sszs/股票代码(如000001)/您的licence
+备用接口：http://api1.mairui.club/hscp/sszs/股票代码(如000001)/您的licence
+接口说明：根据《股票列表》得到的股票代码获取上市公司的所属指数。
+数据更新：每天15:30开始更新，次日凌晨3点前完成
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+mc	string	指数名称
+dm	string	指数代码
+ind	string	进入日期yyyy-MM-dd
+outd	string	退出日期yyyy-MM-dd
+
+7.历届高管成员
+API接口：http://api.mairui.club/hscp/ljgg/股票代码(如000001)/您的licence
+备用接口：http://api1.mairui.club/hscp/ljgg/股票代码(如000001)/您的licence
+接口说明：根据《股票列表》得到的股票代码获取上市公司的历届高管成员名单。
+数据更新：每天15:30开始更新，次日凌晨3点前完成
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+name	string	姓名
+title	string	职务
+sdate	string	起始日期yyyy-MM-dd
+edate	string	终止日期yyyy-MM-dd
+
+8.历届董事会成员
+API接口：http://api.mairui.club/hscp/ljds/股票代码(如000001)/您的licence
+备用接口：http://api1.mairui.club/hscp/ljds/股票代码(如000001)/您的licence
+接口说明：根据《股票列表》得到的股票代码获取上市公司的历届董事会成员名单。
+数据更新：每天15:30开始更新，次日凌晨3点前完成
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+name	string	姓名
+title	string	职务
+sdate	string	起始日期yyyy-MM-dd
+edate	string	终止日期yyyy-MM-dd
+
+9.历届监事会成员
+API接口：http://api.mairui.club/hscp/ljjj/股票代码(如000001)/您的licence
+备用接口：http://api1.mairui.club/hscp/ljjj/股票代码(如000001)/您的licence
+接口说明：根据《股票列表》得到的股票代码获取上市公司的历届监事会成员名单。
+数据更新：每天15:30开始更新，次日凌晨3点前完成
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+name	string	姓名
+title	string	职务
+sdate	string	起始日期yyyy-MM-dd
+edate	string	终止日期yyyy-MM-dd
+
+10. 近年分红
+API接口：http://api.mairui.club/hscp/jnfh/股票代码(如000001)/您的licence
+备用接口：http://api1.mairui.club/hscp/jnfh/股票代码(如000001)/您的licence
+接口说明：根据《股票列表》得到的股票代码获取上市公司的近年来的分红实施结果。按公告日期倒序。
+数据更新：每天15:30开始更新，次日凌晨3点前完成
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+sdate	string	公告日期yyyy-MM-dd
+give	string	每10股送股(单位：股)
+change	string	每10股转增(单位：股)
+send	string	每10股派息(税前，单位：元)
+line	string	进度
+cdate	string	除权除息日yyyy-MM-dd
+edate	string	股权登记日yyyy-MM-dd
+hdate	string	红股上市日yyyy-MM-dd
+
+11. 近年增发
+API接口：http://api.mairui.club/hscp/jnzf/股票代码(如000001)/您的licence
+备用接口：http://api1.mairui.club/hscp/jnzf/股票代码(如000001)/您的licence
+接口说明：根据《股票列表》得到的股票代码获取上市公司的近年来的增发情况。按公告日期倒序。
+数据更新：每天15:30开始更新，次日凌晨3点前完成
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+sdate	string	公告日期yyyy-MM-dd
+type	string	发行方式
+price	string	发行价格
+tprice	string	实际公司募集资金总额
+fprice	string	发行费用总额
+amount	string	实际发行数量
+
+12. 解禁限售
+API接口：http://api.mairui.club/hscp/jjxs/股票代码(如000001)/您的licence
+备用接口：http://api1.mairui.club/hscp/jjxs/股票代码(如000001)/您的licence
+接口说明：根据《股票列表》得到的股票代码获取上市公司的解禁限售情况。按解禁日期倒序。
+数据更新：每天15:30开始更新，次日凌晨3点前完成
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+rdate	string	解禁日期yyyy-MM-dd
+ramount	number	解禁数量(万股)
+rprice	number	解禁股流通市值(亿元)
+batch	number	上市批次
+pdate	string	公告日期yyyy-MM-dd
+
+13. 财务摘要
+API接口：http://api.mairui.club/hscp/cwzy/股票代码(如000001)/您的licence
+备用接口：http://api1.mairui.club/hscp/cwzy/股票代码(如000001)/您的licence
+接口说明：根据《股票列表》得到的股票代码获取上市公司历年的财务摘要。按截止日期倒序。
+数据更新：每天15:30开始更新，次日凌晨3点前完成
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+date	string	截止日期yyyy-MM-dd
+sasset	string	每股净资产-摊薄/期末股数
+mflow	string	每股现金流
+fund	string	每股资本公积金
+fasset	string	固定资产合计
+flasset	string	流动资产合计
+total	string	资产总计
+debt	string	长期负债合计
+mainin	string	主营业务收入
+fee	string	财务费用
+profits	string	净利润
+
+14. 近一年各季度利润
+API接口：http://api.mairui.club/hscp/jdlr/股票代码(如000001)/您的licence
+备用接口：http://api1.mairui.club/hscp/jdlr/股票代码(如000001)/您的licence
+接口说明：根据《股票列表》得到的股票代码获取上市公司近一年各个季度的利润。按截止日期倒序。
+数据更新：每天15:30开始更新，次日凌晨3点前完成
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+date	string	截止日期yyyy-MM-dd
+income	string	营业收入（万元）
+expend	string	营业支出（万元）
+profit	string	营业利润（万元）
+totalp	string	利润总额（万元）
+reprofit	string	净利润（万元）
+basege	string	基本每股收益(元/股)
+ettege	string	稀释每股收益(元/股)
+otherp	string	其他综合收益（万元）
+totalcp	string	综合收益总额（万元）
+
+15. 近一年各季度现金流
+API接口：http://api.mairui.club/hscp/jdxj/股票代码(如000001)/您的licence
+备用接口：http://api1.mairui.club/hscp/jdxj/股票代码(如000001)/您的licence
+接口说明：根据《股票列表》得到的股票代码获取上市公司近一年各个季度的现金流。按截止日期倒序。
+数据更新：每天15:30开始更新，次日凌晨3点前完成
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+date	string	截止日期yyyy-MM-dd
+jyin	string	经营活动现金流入小计（万元）
+jyout	string	经营活动现金流出小计（万元）
+jyfinal	string	经营活动产生的现金流量净额（万元）
+tzin	string	投资活动现金流入小计（万元）
+tzout	string	投资活动现金流出小计（万元）
+tzfinal	string	投资活动产生的现金流量净额（万元）
+czin	string	筹资活动现金流入小计（万元）
+czout	string	筹资活动现金流出小计（万元）
+czfinal	string	筹资活动产生的现金流量净额（万元）
+hl	string	汇率变动对现金及现金等价物的影响（万元）
+cashinc	string	现金及现金等价物净增加额（万元）
+cashs	string	期初现金及现金等价物余额（万元）
+cashe	string	期末现金及现金等价物余额（万元）
+
+16. 近年业绩预告
+API接口：http://api.mairui.club/hscp/yjyg/股票代码(如000001)/您的licence
+备用接口：http://api1.mairui.club/hscp/yjyg/股票代码(如000001)/您的licence
+接口说明：根据《股票列表》得到的股票代码获取上市公司近年来的业绩预告。按公告日期倒序。。
+数据更新：每天15:30开始更新，次日凌晨3点前完成
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+pdate	string	公告日期yyyy-MM-dd
+rdate	string	报告期yyyy-MM-dd
+type	string	类型
+abs	string	业绩预告摘要
+old	string	上年同期每股收益(元)
+
+17. 财务指标
+API接口：http://api.mairui.club/hscp/cwzb/股票代码(如000001)/您的licence
+备用接口：http://api1.mairui.club/hscp/cwzb/股票代码(如000001)/您的licence
+接口说明：根据《股票列表》得到的股票代码获取上市公司近四个季度的主要财务指标。按报告日期倒序。
+数据更新：每天15:30开始更新，次日凌晨3点前完成
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+date	string	报告日期yyyy-MM-dd
+tbmg	string	摊薄每股收益(元)d
+jqmg	string	加权每股收益(元)型
+mgsy	string	每股收益_调整后(元)
+kfmg	string	扣除非经常性损益后的每股收益(元)
+mgjz	string	每股净资产_调整前(元)
+mgjzad	string	每股净资产_调整后(元)
+mgjy	string	每股经营性现金流(元)
+mggjj	string	每股资本公积金(元)
+mgwly	string	每股未分配利润(元)
+zclr	string	总资产利润率(%)
+zylr	string	主营业务利润率(%)
+zzlr	string	总资产净利润率(%)
+cblr	string	成本费用利润率(%)
+yylr	string	营业利润率(%)
+zycb	string	主营业务成本率(%)
+xsjl	string	销售净利率(%)
+gbbc	string	股本报酬率(%)
+jzbc	string	净资产报酬率(%)
+zcbc	string	资产报酬率(%)
+xsml	string	销售毛利率(%)
+xxbz	string	三项费用比重
+fzy	string	非主营比重
+zybz	string	主营利润比重
+gxff	string	股息发放率(%)
+tzsy	string	投资收益率(%)
+zyyw	string	主营业务利润(元)
+jzsy	string	净资产收益率(%)
+jqjz	string	加权净资产收益率(%)
+kflr	string	扣除非经常性损益后的净利润(元)
+zysr	string	主营业务收入增长率(%)
+jlzz	string	净利润增长率(%)
+jzzz	string	净资产增长率(%)
+zzzz	string	总资产增长率(%)
+yszz	string	应收账款周转率(次)
+yszzt	string	应收账款周转天数(天)
+chzz	string	存货周转天数(天)
+chzzl	string	存货周转率(次)
+gzzz	string	固定资产周转率(次)
+zzzzl	string	总资产周转率(次)
+zzzzt	string	总资产周转天数(天)
+ldzz	string	流动资产周转率(次)
+ldzzt	string	流动资产周转天数(天)
+gdzz	string	股东权益周转率(次)
+ldbl	string	流动比率
+sdbl	string	速动比率
+xjbl	string	现金比率(%)
+lxzf	string	利息支付倍数
+zjbl	string	长期债务与营运资金比率(%)
+gdqy	string	股东权益比率(%)
+cqfz	string	长期负债比率(%)
+gdgd	string	股东权益与固定资产比率(%)
+fzqy	string	负债与所有者权益比率(%)
+zczjbl	string	长期资产与长期资金比率(%)
+zblv	string	资本化比率(%)
+gdzcjz	string	固定资产净值率(%)
+zbgdh	string	资本固定化比率(%)
+cqbl	string	产权比率(%)
+qxjzb	string	清算价值比率(%)
+gdzcbz	string	固定资产比重(%)
+zcfzl	string	资产负债率(%)
+zzc	string	总资产(元)
+jyxj	string	经营现金净流量对销售收入比率(%)
+zcjyxj	string	资产的经营现金流量回报率(%)
+jylrb	string	经营现金净流量与净利润的比率(%)
+jyfzl	string	经营现金净流量对负债比率(%)
+xjlbl	string	现金流量比率(%)
+dqgptz	string	短期股票投资(元)
+dqzctz	string	短期债券投资(元)
+dqjytz	string	短期其它经营性投资(元)
+qcgptz	string	长期股票投资(元)
+cqzqtz	string	长期债券投资(元)
+cqjyxtz	string	长期其它经营性投资(元)
+yszk1	string	1年以内应收帐款(元)
+yszk12	string	1-2年以内应收帐款(元)
+yszk23	string	2-3年以内应收帐款(元)
+yszk3	string	3年以内应收帐款(元)
+yfhk1	string	1年以内预付货款(元)
+yfhk12	string	1-2年以内预付货款(元)
+yfhk23	string	2-3年以内预付货款(元)
+yfhk3	string	3年以内预付货款(元)
+ysk1	string	1年以内其它应收款(元)
+ysk12	string	1-2年以内其它应收款(元)
+ysk23	string	2-3年以内其它应收款(元)
+ysk3	string	3年以内其它应收款(元)
+
+18. 十大股东
+API接口：http://api.mairui.club/hscp/sdgd/股票代码(如000001)/您的licence
+备用接口：http://api1.mairui.club/hscp/sdgd/股票代码(如000001)/您的licence
+接口说明：根据《股票列表》得到的股票代码获取上市公司的十大股东数据。按截止日期倒序。
+数据更新：每天15:30开始更新，次日凌晨3点前完成
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+jzrq	string	截止日期 yyyy-MM-dd
+ggrq	string	公告日期 yyyy-MM-dd
+gdsm	string	股东说明
+gdzs	number	股东总数
+pjcg	number	平均持股(单位：股，按总股本计算)
+
+19. 十大流通股东
+API接口：http://api.mairui.club/hscp/ltgd/股票代码(如000001)/您的licence
+备用接口：http://api1.mairui.club/hscp/ltgd/股票代码(如000001)/您的licence
+接口说明：根据《股票列表》得到的股票代码获取上市公司的十大流通股东数据。按公告日期倒序。
+数据更新：每天15:30开始更新，次日凌晨3点前完成
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+jzrq	string	截止日期 yyyy-MM-dd
+ggrq	string	公告日期 yyyy-MM-dd
+
+20. 股东变化趋势
+API接口：http://api.mairui.club/hscp/gdbh/股票代码(如000001)/您的licence
+备用接口：http://api1.mairui.club/hscp/gdbh/股票代码(如000001)/您的licence
+接口说明：根据《股票列表》得到的股票代码获取上市公司的股东变化趋势数据。按截止日期倒序。
+数据更新：每天15:30开始更新，次日凌晨3点前完成
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+jzrq	string	截止日期 yyyy-MM-dd
+gdhs	string	股东户数
+bh	string	比上期变化情况
+
+21. 基金持股
+API接口：http://api.mairui.club/hscp/jjcg/股票代码(如000001)/您的licence
+备用接口：http://api1.mairui.club/hscp/jjcg/股票代码(如000001)/您的licence
+接口说明：根据《股票列表》得到的股票代码获取该股票最近500家左右的基金持股情况。按截止日期倒序。
+数据更新：每天15:30开始更新，当日24点前完成
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+jzrq	string	截止日期 yyyy-MM-dd
+jjmc	string	基金名称
+jjdm	string	基金代码
+ccsl	number	持仓数量(股)
+ltbl	number	占流通股比例(%)
+cgsz	number	持股市值（元）
+jzbl	number	占净值比例（%）
+
+22. 主力资金走势
+API接口：http://api.mairui.club/hsmy/zlzj/股票代码(如000001)/您的licence
+备用接口：http://api1.mairui.club/hsmy/zlzj/股票代码(如000001)/您的licence
+接口说明：根据《股票列表》得到的股票代码作为参数，得到每分钟主力资金走势，按时间倒序。
+数据更新：每天20:00开始更新（更新耗时约4小时）
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+t	string	时间yyyy-MM-dd HH:mm:ss
+zdf	number	涨跌幅(%)
+lrzj	number	主力流入(元)
+lrl	number	主力流入率(%)
+lczj	number	主力流出(元)
+jlr	number	主力净流入(元)
+jlrl	number	主力净流入率(%)
+shlrl	number	散户流入率(%)
+
+23. 资金流入趋势
+API接口：http://api.mairui.club/hsmy/zjlr/股票代码(如000001)/您的licence
+备用接口：http://api1.mairui.club/hsmy/zjlr/股票代码(如000001)/您的licence
+接口说明：根据《股票列表》得到的股票代码作为参数，得到近十年每天资金流入趋势，按时间倒序。
+数据更新：每天20:00开始更新（更新耗时约4小时）
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+t	string	时间yyyy-MM-dd
+zdf	number	涨跌幅(%)
+hsl	number	换手率(%)
+jlr	number	净流入(元)
+jlrl	number	净流入率(%)
+zljlr	number	主力净流入(元)
+zljlrl	number	主力净流入率(%)
+hyjlr	number	行业净流入(元)
+hyjlrl	number	行业净流入率(%)
+
+24. 最近10天资金流入趋势
+API接口：http://api.mairui.club/hsmy/zhlrt/股票代码(如000001)/您的licence
+备用接口：http://api1.mairui.club/hsmy/zhlrt/股票代码(如000001)/您的licence
+接口说明：根据《股票列表》得到的股票代码作为参数，得到最近10天资金流入趋势，按时间倒序。
+数据更新：每天20:00开始更新（更新耗时约4小时）
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+t	string	时间yyyy-MM-dd
+zdf	number	涨跌幅(%)
+hsl	number	换手率(%)
+jlr	number	净流入(元)
+jlrl	number	净流入率(%)
+zljlr	number	主力净流入(元)
+zljlrl	number	主力净流入率(%)
+hyjlr	number	行业净流入(元)
+hyjlrl	number	行业净流入率(%)
+
+25. 阶段主力动向
+API接口：http://api.mairui.club/hsmy/jddx/股票代码(如000001)/您的licence
+备用接口：http://api1.mairui.club/hsmy/jddx/股票代码(如000001)/您的licence
+接口说明：根据《股票列表》得到的股票代码作为参数，得到近十年每天阶段主力动向，按时间倒序。
+数据更新：每天20:00开始更新（更新耗时约4小时）
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+t	string	时间yyyy-MM-dd
+jlr3	number	近3日主力净流入(元）
+jlr5	number	近5日主力净流入(元）
+jlr10	number	近10日主力净流入(元）
+jlrl3	number	近3日主力净流入率(%）
+jlrl5	number	近5日主力净流入率(%）
+jlrl10	number	近10日主力净流入率(%）
+
+26. 最近10天阶段主力动向
+API接口：http://api.mairui.club/hsmy/jddxt/股票代码(如000001)/您的licence
+备用接口：http://api1.mairui.club/hsmy/jddxt/股票代码(如000001)/您的licence
+接口说明：根据《股票列表》得到的股票代码作为参数，得到最近10天阶段主力动向，按时间倒序。
+数据更新：每天20:00开始更新（更新耗时约4小时）
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+t	string	时间yyyy-MM-dd
+jlr3	number	近3日主力净流入(元）
+jlr5	number	近5日主力净流入(元）
+jlr10	number	近10日主力净流入(元）
+jlrl3	number	近3日主力净流入率(%）
+jlrl5	number	近5日主力净流入率(%）
+jlrl10	number	近10日主力净流入率(%）
+
+27. 历史成交分布
+API接口：http://api.mairui.club/hsmy/lscj/股票代码(如000001)/您的licence
+备用接口：http://api1.mairui.club/hsmy/lscj/股票代码(如000001)/您的licence
+接口说明：根据《股票列表》得到的股票代码作为参数，得到近十年每天历史成交分布，按时间倒序。
+数据更新：每天20:00开始更新（更新耗时约4小时）
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+t	string	时间yyyy-MM-dd
+c	number	收盘价(元)
+zdf	number	涨跌幅(%)
+jlrl	number	净流入率(%)
+hsl	number	换手率(%)
+qbjlr	number	全部净流入(元)
+cddlr	number	超大单流入(元)
+cddjlr	number	超大单净流入(元)
+ddlr	number	大单流入(元)
+ddjlr	number	大单净流入(元)
+xdlr	number	小单流入(元)
+xdjlr	number	小单净流入(元)
+sdlr	number	散单流入(元)
+sdjlr	number	散单净流入(元)
+
+28. 最近10天成交分布
+API接口：http://api.mairui.club/hsmy/lscjt/股票代码(如000001)/您的licence
+备用接口：http://api1.mairui.club/hsmy/lscjt/股票代码(如000001)/您的licence
+接口说明：根据《股票列表》得到的股票代码作为参数，得到最近10天成交分布，按时间倒序。
+数据更新：每天20:00开始更新（更新耗时约4小时）
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+t	string	时间yyyy-MM-dd
+c	number	收盘价(元)
+zdf	number	涨跌幅(%)
+jlrl	number	净流入率(%)
+hsl	number	换手率(%)
+qbjlr	number	全部净流入(元)
+cddlr	number	超大单流入(元)
+cddjlr	number	超大单净流入(元)
+ddlr	number	大单流入(元)
+ddjlr	number	大单净流入(元)
+xdlr	number	小单流入(元)
+xdjlr	number	小单净流入(元)
+sdlr	number	散单流入(元)
+sdjlr	number	散单净流入(元)
+
+29. 涨停股池
+API接口：http://api.mairui.club/hslt/ztgc/日期(如2020-01-15)/您的licence
+备用接口：http://api1.mairui.club/hslt/ztgc/日期(如2020-01-15)/您的licence
+接口说明：根据日期（格式yyyy-MM-dd，从2019-11-28开始到现在的每个交易日）作为参数，得到每天的涨停股票列表，根据封板时间升序。
+数据更新：交易时间段每10分钟
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+dm	string	代码
+mc	string	名称
+p	number	价格（元）
+zf	number	涨幅（%）
+cje	number	成交额（元）
+lt	number	流通市值（元）
+zsz	number	总市值（元）
+hs	number	换手率（%）
+lbc	number	连板数
+fbt	string	首次封板时间（HH:mm:ss）
+lbt	string	最后封板时间（HH:mm:ss）
+zj	number	封板资金（元）
+zbc	number	炸板次数
+tj	string	涨停统计（x天/y板）
+
+30. 跌停股池
+API接口：http://api.mairui.club/hslt/dtgc/日期(如2020-01-15)/您的licence
+备用接口：http://api1.mairui.club/hslt/dtgc/日期(如2020-01-15)/您的licence
+接口说明：根据日期（格式yyyy-MM-dd，从2019-11-28开始到现在的每个交易日）作为参数，得到每天的跌停股票列表，根据封单资金升序。
+数据更新：交易时间段每10分钟
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+dm	string	代码
+mc	string	名称
+p	number	价格（元）
+zf	number	跌幅（%）
+cje	number	成交额（元）
+lt	number	流通市值（元）
+zsz	number	总市值（元）
+pe	number	动态市盈率
+hs	number	换手率（%）
+lbc	number	连续跌停次数
+lbt	string	最后封板时间（HH:mm:ss）
+zj	number	封单资金（元）
+fba	number	板上成交额（元）
+zbc	number	开板次数
+
+31. 强势股池
+API接口：http://api.mairui.club/hslt/qsgc/日期(如2020-01-15)/您的licence
+备用接口：http://api1.mairui.club/hslt/qsgc/日期(如2020-01-15)/您的licence
+接口说明：根据日期（格式yyyy-MM-dd，从2019-11-28开始到现在的每个交易日）作为参数，得到每天的强势股票列表，根据涨幅倒序。
+数据更新：交易时间段每10分钟
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+dm	string	代码
+mc	string	名称
+p	number	价格（元）
+ztp	number	涨停价（元）
+zf	number	涨幅（%）
+cje	number	成交额（元）
+lt	number	流通市值（元）
+zsz	number	总市值（元）
+zs	number	涨速（%）
+nh	number	是否新高（0：否，1：是）
+lb	number	量比
+hs	number	换手率（%）
+tj	string	涨停统计（x天/y板）
+
+32. 次新股池
+API接口：http://api.mairui.club/hslt/cxgc/日期(如2020-01-15)/您的licence
+备用接口：http://api1.mairui.club/hslt/cxgc/日期(如2020-01-15)/您的licence
+接口说明：根据日期（格式yyyy-MM-dd，从2019-11-28开始到现在的每个交易日）作为参数，得到每天的次新股票列表，根据开板几日升序。
+数据更新：交易时间段每10分钟
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+dm	string	代码
+mc	string	名称
+p	number	价格（元）
+ztp	number	涨停价（元，无涨停价为null）
+zf	number	涨跌幅（%）
+cje	number	成交额（元）
+lt	number	流通市值（元）
+zsz	number	总市值（元）
+nh	number	是否新高（0：否，1：是）
+hs	number	转手率（%）
+tj	string	涨停统计（x天/y板）
+
+33. 炸板股池
+API接口：http://api.mairui.club/hslt/zbgc/日期(如2020-01-15)/您的licence
+备用接口：http://api1.mairui.club/hslt/zbgc/日期(如2020-01-15)/您的licence
+接口说明：根据日期（格式yyyy-MM-dd，从2019-11-28开始到现在的每个交易日）作为参数，得到每天的炸板股票列表，根据首次封板时间升序。
+数据更新：交易时间段每10分钟
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+dm	string	代码
+mc	string	名称
+p	number	价格（元）
+ztp	number	涨停价（元）
+zf	number	涨跌幅（%）
+cje	number	成交额（元）
+lt	number	流通市值（元）
+zsz	number	总市值（元）
+zs	number	涨速（%）
+hs	number	转手率（%）
+tj	string	涨停统计（x天/y板）
+fbt	string	首次封板时间（HH:mm:ss）
+zbc	number	炸板次数
+
+34. 融资融券标的股
+API接口：http://api.mairui.club/hsrq/list/您的licence
+备用接口：http://api1.mairui.club/hsrq/list/您的licence
+接口说明：沪深两市融资融券标的股，得到的结果用于下方接口参数传入。
+数据更新：每天上午8:00
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+dm	string	股票代码，如：000001
+mc	string	股票名称，如：平安银行
+jys	string	交易所，sh表示上证，sz表示深证
+
+35. 融资融券历史走势
+API接口：http://api.mairui.club/hsrq/lszs/股票代码(如000001)/您的licence
+备用接口：http://api1.mairui.club/hsrq/lszs/股票代码(如000001)/您的licence
+接口说明：根据《融资融券标的股》接口获取的股票代码得到近两年股票的融资融券变化走势，根据时间倒序。
+数据更新：每天上午8:00
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+rq	string	交易日期（yyyy-MM-dd）
+rzrqye	number	当日融资融券余额（元）
+rzrqyecz	number	当日融资融券余额差值（元）
+p	number	当日收盘价（元）
+zdf1	number	当日涨跌幅（%）
+zdf3	number	3日涨跌幅（%）
+zdf5	number	5日涨跌幅（%）
+zdf10	number	10日涨跌幅（%）
+rzye	number	融资当日余额（元）
+rzyezb	number	融资当日余额占流通市值比（%）
+rzmre1	number	融资当日买入额（元）
+rzmre3	number	融资3日买入额（元）
+rzmre5	number	融资5日买入额（元）
+rzmre10	number	融资10日买入额（元）
+rzche1	number	融资当日偿还额（元）
+rzche3	number	融资3日偿还额（元）
+rzche5	number	融资5日偿还额（元）
+rzche10	number	融资10日偿还额（元）
+rzjm1	number	融资当日净买入额（元）
+rzjm3	number	融资3日净买入额（元）
+rzjm5	number	融资5日净买入额（元）
+rzjm10	number	融资10日净买入额（元）
+rqye	number	融券当日余额（元）
+rqyl	number	融券当日余量（股）
+rqmcl1	number	融券当日卖出量（股）
+rqmcl3	number	融券3日卖出量（股）
+rqmcl5	number	融券5日卖出量（股）
+rqmcl10	number	融券10日卖出量（股）
+rqchl1	number	融券当日偿还量（股）
+rqchl3	number	融券3日偿还量（股）
+rqchl5	number	融券5日偿还量（股）
+rqchl10	number	融券10日偿还量（股）
+rqjmc1	number	融券当日净卖出量（股）
+rqjmc3	number	融券3日净卖出量（股）
+rqjmc5	number	融券5日净卖出量（股）
+rqjmc10	number	融券10日净卖出量（股）
+
+36. 最新分时交易
+API接口：http://api.mairui.club/hszb/fsjy/股票代码(如000001)/分时级别/您的licence
+备用接口：http://api1.mairui.club/hszb/fsjy/股票代码(如000001)/分时级别/您的licence
+接口说明：根据《股票列表》得到的股票代码以及分时级别获取分时交易数据，交易时间从远到近排序。目前 分时级别 支持5分钟、15分钟、30分钟、60分钟、日周月年级别（包括前后复权），对应的值分别是 5m（5分钟）、15m（15分钟）、30m（30分钟）、60m（60分钟）、dn(日线未复权)、dq（日线前复权）、dh（日线后复权）、wn(周线未复权)、wq（周线前复权）、wh（周线后复权）、mn(月线未复权)、mq（月线前复权）、mh（月线后复权）、yn(年线未复权)、yq（年线前复权）、yh（年线后复权） 。
+数据更新：分钟级别数据盘中更新，分时越小越优先更新，如5分钟级别会每5分钟更新，15分钟级别会每15分钟更新，以此类推，日线及以上级别每天16:00更新。
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+d	string	交易时间，短分时级别格式为yyyy-MM-dd HH:mm:ss，日线级别为yyyy-MM-dd
+o	number	开盘价（元）
+h	number	最高价（元）
+l	number	最低价（元）
+c	number	收盘价（元）
+v	number	成交量（手）
+e	number	成交额（元）
+zf	number	振幅（%）
+hs	number	换手率（%）
+zd	number	涨跌幅（%）
+zde	number	涨跌额（元）
+
+37. 最新分时KDJ(9,3,3)
+API接口：http://api.mairui.club/hszb/kdj/股票代码(如000001)/分时级别/您的licence
+备用接口：http://api1.mairui.club/hszb/kdj/股票代码(如000001)/分时级别/您的licence
+接口说明：根据《股票列表》得到的股票代码以及分时级别获取分时KDJ数据，交易时间从远到近排序。目前 分时级别 支持5分钟、15分钟、30分钟、60分钟、日周月年级别（包括前后复权），对应的值分别是 5m（5分钟）、15m（15分钟）、30m（30分钟）、60m（60分钟）、dn(日线未复权)、dq（日线前复权）、dh（日线后复权）、wn(周线未复权)、wq（周线前复权）、wh（周线后复权）、mn(月线未复权)、mq（月线前复权）、mh（月线后复权）、yn(年线未复权)、yq（年线前复权）、yh（年线后复权） 。
+数据更新：分钟级别数据盘中更新，分时越小越优先更新，如5分钟级别会每5分钟更新，15分钟级别会每15分钟更新，以此类推，日线及以上级别每天16:00更新。
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+t	string	交易时间，短分时级别格式为yyyy-MM-dd HH:mm:ss，日线级别为yyyy-MM-dd
+k	number	K值
+d	number	D值
+j	number	J值
+
+38. 最新分时MACD
+API接口：http://api.mairui.club/hszb/macd/股票代码(如000001)/分时级别/您的licence
+备用接口：http://api1.mairui.club/hszb/macd/股票代码(如000001)/分时级别/您的licence
+接口说明：根据《股票列表》得到的股票代码以及分时级别获取分时MACD数据，交易时间从远到近排序。目前 分时级别 支持5分钟、15分钟、30分钟、60分钟、日周月年级别（包括前后复权），对应的值分别是 5m（5分钟）、15m（15分钟）、30m（30分钟）、60m（60分钟）、dn(日线未复权)、dq（日线前复权）、dh（日线后复权）、wn(周线未复权)、wq（周线前复权）、wh（周线后复权）、mn(月线未复权)、mq（月线前复权）、mh（月线后复权）、yn(年线未复权)、yq（年线前复权）、yh（年线后复权） 。
+数据更新：分钟级别数据盘中更新，分时越小越优先更新，如5分钟级别会每5分钟更新，15分钟级别会每15分钟更新，以此类推，日线及以上级别每天16:00更新。
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+t	string	交易时间，短分时级别格式为yyyy-MM-dd HH:mm:ss，日线级别为yyyy-MM-dd
+diff	number	DIFF值
+dea	number	DEA值
+macd	number	MACD值
+ema12	number	EMA（12）值
+ema26	number	EMA（26）值
+
+39. 最新分时MA
+API接口：http://api.mairui.club/hszb/ma/股票代码(如000001)/分时级别/您的licence
+备用接口：http://api1.mairui.club/hszb/ma/股票代码(如000001)/分时级别/您的licence
+接口说明：根据《股票列表》得到的股票代码以及分时级别获取分时MA数据，交易时间从远到近排序。目前 分时级别 支持5分钟、15分钟、30分钟、60分钟、日周月年级别（包括前后复权），对应的值分别是 5m（5分钟）、15m（15分钟）、30m（30分钟）、60m（60分钟）、dn(日线未复权)、dq（日线前复权）、dh（日线后复权）、wn(周线未复权)、wq（周线前复权）、wh（周线后复权）、mn(月线未复权)、mq（月线前复权）、mh（月线后复权）、yn(年线未复权)、yq（年线前复权）、yh（年线后复权） 。目前提供了ma3，ma5，ma10，ma15，ma20，ma30，ma60，ma120，ma200，ma250这些常用的移动平均线。
+数据更新：分钟级别数据盘中更新，分时越小越优先更新，如5分钟级别会每5分钟更新，15分钟级别会每15分钟更新，以此类推，日线及以上级别每天16:00更新。
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+t	string	交易时间，短分时级别格式为yyyy-MM-dd HH:mm:ss，日线级别为yyyy-MM-dd
+ma3	number	MA3，没有则为null
+ma5	number	MA5，没有则为null
+ma10	number	MA10，没有则为null
+ma15	number	MA20，没有则为null
+ma20	number	MA20，没有则为null
+ma30	number	MA30，没有则为null
+ma60	number	MA60，没有则为null
+ma120	number	MA120，没有则为null
+ma200	number	MA200，没有则为null
+ma250	number	MA250，没有则为null
+
+40. 最新分时BOLL(20,2)
+API接口：http://api.mairui.club/hszb/boll/股票代码(如000001)/分时级别/您的licence
+备用接口：http://api1.mairui.club/hszb/boll/股票代码(如000001)/分时级别/您的licence
+接口说明：根据《股票列表》得到的股票代码以及分时级别获取分时BOLL数据，交易时间从远到近排序。目前 分时级别 支持5分钟、15分钟、30分钟、60分钟、日周月年级别（包括前后复权），对应的值分别是 5m（5分钟）、15m（15分钟）、30m（30分钟）、60m（60分钟）、dn(日线未复权)、dq（日线前复权）、dh（日线后复权）、wn(周线未复权)、wq（周线前复权）、wh（周线后复权）、mn(月线未复权)、mq（月线前复权）、mh（月线后复权）、yn(年线未复权)、yq（年线前复权）、yh（年线后复权） 。
+数据更新：分钟级别数据盘中更新，分时越小越优先更新，如5分钟级别会每5分钟更新，15分钟级别会每15分钟更新，以此类推，日线及以上级别每天16:00更新。
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+t	string	交易时间，短分时级别格式为yyyy-MM-dd HH:mm:ss，日线级别为yyyy-MM-dd
+u	number	上轨
+d	number	下轨
+m	number	中轨
+
+41. 历史分时交易
+API接口：http://api.mairui.club/hszbl/fsjy/股票代码(如000001)/分时级别/您的licence
+备用接口：http://api1.mairui.club/hszbl/fsjy/股票代码(如000001)/分时级别/您的licence
+接口说明：根据《股票列表》得到的股票代码和分时级别获取历史交易数据，交易时间从远到近排序。目前 分时级别 支持5分钟、15分钟、30分钟、60分钟、日周月年级别（包括前后复权），对应的值分别是 5m（5分钟）、15m（15分钟）、30m（30分钟）、60m（60分钟）、dn(日线未复权)、dq（日线前复权）、dh（日线后复权）、wn(周线未复权)、wq（周线前复权）、wh（周线后复权）、mn(月线未复权)、mq（月线前复权）、mh（月线后复权）、yn(年线未复权)、yq（年线前复权）、yh（年线后复权） 。
+数据更新：分钟级别数据盘中更新，分时越小越优先更新，如5分钟级别会每5分钟更新，15分钟级别会每15分钟更新，以此类推，日线及以上级别每天16:00更新。
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+d	string	交易时间，短分时级别格式为yyyy-MM-dd HH:mm:ss，日线级别为yyyy-MM-dd
+o	number	开盘价（元）
+h	number	最高价（元）
+l	number	最低价（元）
+c	number	收盘价（元）
+v	number	成交量（手）
+e	number	成交额（元）
+zf	number	振幅（%）
+hs	number	换手率（%）
+zd	number	涨跌幅（%）
+zde	number	涨跌额（元）
+
+42. 历史分时KDJ(9,3,3)
+API接口：http://api.mairui.club/hszbl/kdj/股票代码(如000001)/分时级别/您的licence
+备用接口：http://api1.mairui.club/hszbl/kdj/股票代码(如000001)/分时级别/您的licence
+接口说明：根据《股票列表》得到的股票代码和分时级别获取历史kdj数据，交易时间从远到近排序。目前 分时级别 支持5分钟、15分钟、30分钟、60分钟、日周月年级别（包括前后复权），对应的值分别是 5m（5分钟）、15m（15分钟）、30m（30分钟）、60m（60分钟）、dn(日线未复权)、dq（日线前复权）、dh（日线后复权）、wn(周线未复权)、wq（周线前复权）、wh（周线后复权）、mn(月线未复权)、mq（月线前复权）、mh（月线后复权）、yn(年线未复权)、yq（年线前复权）、yh（年线后复权） 。
+数据更新：分钟级别数据盘中更新，分时越小越优先更新，如5分钟级别会每5分钟更新，15分钟级别会每15分钟更新，以此类推，日线及以上级别每天16:00更新。
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+t	string	交易时间，短分时级别格式为yyyy-MM-dd HH:mm:ss，日线级别为yyyy-MM-dd
+k	number	K值
+d	number	D值
+j	number	J值
+
+43. 历史分时MACD
+API接口：http://api.mairui.club/hszbl/macd/股票代码(如000001)/分时级别/您的licence
+备用接口：http://api1.mairui.club/hszbl/macd/股票代码(如000001)/分时级别/您的licence
+接口说明：根据《股票列表》得到的股票代码和分时级别获取历史macd数据，交易时间从远到近排序。目前 分时级别 支持5分钟、15分钟、30分钟、60分钟、日周月年级别（包括前后复权），对应的值分别是 5m（5分钟）、15m（15分钟）、30m（30分钟）、60m（60分钟）、dn(日线未复权)、dq（日线前复权）、dh（日线后复权）、wn(周线未复权)、wq（周线前复权）、wh（周线后复权）、mn(月线未复权)、mq（月线前复权）、mh（月线后复权）、yn(年线未复权)、yq（年线前复权）、yh（年线后复权） 。
+数据更新：分钟级别数据盘中更新，分时越小越优先更新，如5分钟级别会每5分钟更新，15分钟级别会每15分钟更新，以此类推，日线及以上级别每天16:00更新。
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+t	string	交易时间，短分时级别格式为yyyy-MM-dd HH:mm:ss，日线级别为yyyy-MM-dd
+diff	number	DIFF值
+dea	number	DEA值
+macd	number	MACD值
+ema12	number	EMA（12）值
+ema26	number	EMA（26）值
+
+44. 历史分时MA
+API接口：http://api.mairui.club/hszbl/ma/股票代码(如000001)/分时级别/您的licence
+备用接口：http://api1.mairui.club/hszbl/ma/股票代码(如000001)/分时级别/您的licence
+接口说明：根据《股票列表》得到的股票代码和分时级别获取历史ma数据，交易时间从远到近排序。目前 分时级别 支持5分钟、15分钟、30分钟、60分钟、日周月年级别（包括前后复权），对应的值分别是 5m（5分钟）、15m（15分钟）、30m（30分钟）、60m（60分钟）、dn(日线未复权)、dq（日线前复权）、dh（日线后复权）、wn(周线未复权)、wq（周线前复权）、wh（周线后复权）、mn(月线未复权)、mq（月线前复权）、mh（月线后复权）、yn(年线未复权)、yq（年线前复权）、yh（年线后复权） 。目前提供了ma3，ma5，ma10，ma15，ma20，ma30，ma60，ma120，ma200，ma250这些常用的移动平均线。
+数据更新：分钟级别数据盘中更新，分时越小越优先更新，如5分钟级别会每5分钟更新，15分钟级别会每15分钟更新，以此类推，日线及以上级别每天16:00更新。
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+t	string	交易时间，短分时级别格式为yyyy-MM-dd HH:mm:ss，日线级别为yyyy-MM-dd
+ma3	number	MA3，没有则为null
+ma5	number	MA5，没有则为null
+ma10	number	MA10，没有则为null
+ma15	number	MA20，没有则为null
+ma20	number	MA20，没有则为null
+ma30	number	MA30，没有则为null
+ma60	number	MA60，没有则为null
+ma120	number	MA120，没有则为null
+ma200	number	MA200，没有则为null
+ma250	number	MA250，没有则为null
+
+45. 历史分时BOLL(20,2)
+API接口：http://api.mairui.club/hszbl/boll/股票代码(如000001)/分时级别/您的licence
+备用接口：http://api1.mairui.club/hszbl/boll/股票代码(如000001)/分时级别/您的licence
+接口说明：根据《股票列表》得到的股票代码和分时级别获取历史boll数据，交易时间从远到近排序。目前 分时级别 支持5分钟、15分钟、30分钟、60分钟、日周月年级别（包括前后复权），对应的值分别是 5m（5分钟）、15m（15分钟）、30m（30分钟）、60m（60分钟）、dn(日线未复权)、dq（日线前复权）、dh（日线后复权）、wn(周线未复权)、wq（周线前复权）、wh（周线后复权）、mn(月线未复权)、mq（月线前复权）、mh（月线后复权）、yn(年线未复权)、yq（年线前复权）、yh（年线后复权） 。
+数据更新：分钟级别数据盘中更新，分时越小越优先更新，如5分钟级别会每5分钟更新，15分钟级别会每15分钟更新，以此类推，日线及以上级别每天16:00更新。
+请求频率：1分钟20次
+返回格式：标准Json格式      [{},...{}]
+字段名称	数据类型	字段说明
+t	string	交易时间，短分时级别格式为yyyy-MM-dd HH:mm:ss，日线级别为yyyy-MM-dd
+u	number	上轨
+d	number	下轨
+m	number	中轨
